@@ -13,7 +13,7 @@ Animated rocket on `git push` for kitty terminal. Inspired by [gitrocket](https:
 fisher install maferland/termrocket
 ```
 
-Binary auto-downloads on first shell start.
+Binary downloads automatically on first `git push` (runs in background, won't slow down your push).
 
 ## Usage
 
