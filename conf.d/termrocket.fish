@@ -1,46 +1,8 @@
 # termrocket - Animated rocket on git push for kitty terminal
 set -l plugin_dir (dirname (status filename))/..
 set -l bin_dir "$plugin_dir/bin"
-set -l binary "$bin_dir/termrocket"
 
-# Download binary if not present
-if not test -x "$binary"
-    set -l os (uname -s | string lower)
-    set -l arch (uname -m)
-
-    # Determine binary name
-    set -l binary_name
-    if test "$os" = darwin
-        if test "$arch" = arm64
-            set binary_name termrocket-macos-arm64
-        else
-            set binary_name termrocket-macos-x86_64
-        end
-    else if test "$os" = linux
-        set binary_name termrocket-linux-x86_64
-    else
-        echo "termrocket: unsupported platform $os-$arch" >&2
-        return
-    end
-
-    # Get latest release URL
-    set -l url "https://github.com/maferland/termrocket/releases/latest/download/$binary_name"
-
-    mkdir -p "$bin_dir"
-
-    if type -q curl
-        curl -sL "$url" -o "$binary"
-    else if type -q wget
-        wget -q "$url" -O "$binary"
-    else
-        echo "termrocket: curl or wget required" >&2
-        return
-    end
-
-    chmod +x "$binary"
-end
-
-# Add to PATH
-if test -x "$binary"
+# Add to PATH if binary exists
+if test -x "$bin_dir/termrocket"
     fish_add_path --path "$bin_dir"
 end
