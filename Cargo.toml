@@ -1,0 +1,17 @@
+[package]
+name = "termrocket"
+version = "0.1.0"
+edition = "2024"
+description = "Animated rocket on git push. Inspired by gitrocket."
+license = "MIT"
+repository = "https://github.com/maferland/termrocket"
+
+[dependencies]
+image = "0.25"
+base64 = "0.22"
+clap = { version = "4", features = ["derive"] }
+libc = "0.2"
+
+[profile.release]
+opt-level = 3
+lto = true
