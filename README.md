@@ -9,27 +9,11 @@ Animated rocket on `git push` for kitty terminal. Inspired by [gitrocket](https:
 
 ## Install
 
-### With Fisher (recommended)
-
 ```bash
 fisher install maferland/termrocket
-cd ~/.local/share/fisher/github.com/maferland/termrocket
-cargo build --release
 ```
 
-### Manual
-
-```bash
-git clone https://github.com/maferland/termrocket.git
-cd termrocket
-cargo build --release
-
-# Add to PATH
-cp target/release/termrocket ~/.local/bin/
-
-# Add fish functions
-cp -r fish/functions/* ~/.config/fish/functions/
-```
+Binary auto-downloads on first shell start.
 
 ## Usage
 
