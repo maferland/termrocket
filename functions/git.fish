@@ -7,6 +7,10 @@ function git --wraps git --description "Git wrapper that launches rocket on push
             if type -q termrocket
                 termrocket launch &
                 disown
+            else
+                # Trigger background download for next time
+                _termrocket_download &
+                disown
             end
         end
     end
