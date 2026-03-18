@@ -9,6 +9,12 @@ Animated rocket on `git push` for kitty and ghostty terminals. Inspired by [gitr
 
 ## Install
 
+### Homebrew
+```bash
+brew install maferland/tap/termrocket
+```
+
+### Fisher (fish shell auto-trigger)
 ```bash
 fisher install maferland/termrocket
 ```
