@@ -1,10 +1,10 @@
 # termrocket
 
-Animated rocket on `git push` for kitty terminal. Inspired by [gitrocket](https://github.com/bomanimc/gitrocket).
+Animated rocket on `git push` for kitty and ghostty terminals. Inspired by [gitrocket](https://github.com/bomanimc/gitrocket).
 
 ## Requirements
 
-- [Kitty terminal](https://sw.kovidgoyal.net/kitty/)
+- [Kitty terminal](https://sw.kovidgoyal.net/kitty/) or [Ghostty](https://ghostty.org/)
 - [Fish shell](https://fishshell.com/) (for auto-trigger)
 
 ## Install

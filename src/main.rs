@@ -44,9 +44,11 @@ fn main() {
     }
 }
 
-fn is_kitty_terminal() -> bool {
+fn is_supported_terminal() -> bool {
     std::env::var("TERM").map(|t| t.contains("kitty")).unwrap_or(false)
         || std::env::var("KITTY_WINDOW_ID").is_ok()
+        || std::env::var("TERM_PROGRAM").map(|t| t.eq_ignore_ascii_case("ghostty")).unwrap_or(false)
+        || std::env::var("GHOSTTY_RESOURCES_DIR").is_ok()
 }
 
 fn get_terminal_size() -> (u32, u32) {
@@ -286,9 +288,9 @@ fn get_frame_position(frame: u32, terminal_height: u32, total_frames: u32) -> i3
 }
 
 fn launch_rocket() {
-    if !is_kitty_terminal() {
-        eprintln!("termrocket: kitty terminal not detected");
-        eprintln!("Set TERM=xterm-kitty or run inside kitty terminal");
+    if !is_supported_terminal() {
+        eprintln!("termrocket: no supported terminal detected (kitty or ghostty)");
+        eprintln!("Run inside kitty or ghostty terminal");
         std::process::exit(1);
     }
 
@@ -331,19 +333,23 @@ fn test_terminal() {
 
     let term = std::env::var("TERM").unwrap_or_else(|_| "unknown".to_string());
     let kitty_id = std::env::var("KITTY_WINDOW_ID").ok();
+    let term_program = std::env::var("TERM_PROGRAM").unwrap_or_else(|_| "unknown".to_string());
+    let ghostty_dir = std::env::var("GHOSTTY_RESOURCES_DIR").ok();
 
     println!("TERM: {}", term);
+    println!("TERM_PROGRAM: {}", term_program);
     println!("KITTY_WINDOW_ID: {}", kitty_id.as_deref().unwrap_or("not set"));
-    println!("Kitty detected: {}", is_kitty_terminal());
+    println!("GHOSTTY_RESOURCES_DIR: {}", ghostty_dir.as_deref().unwrap_or("not set"));
+    println!("Supported terminal: {}", is_supported_terminal());
 
     let (cols, rows) = get_terminal_size();
     println!("Terminal size: {}x{}", cols, rows);
 
-    if is_kitty_terminal() {
+    if is_supported_terminal() {
         println!("\n[OK] Terminal supports kitty graphics protocol");
         println!("Run 'termrocket launch' to see the rocket!");
     } else {
-        println!("\n[WARN] Kitty terminal not detected");
-        println!("termrocket requires kitty terminal for graphics");
+        println!("\n[WARN] No supported terminal detected");
+        println!("termrocket requires kitty or ghostty for graphics");
     }
 }
